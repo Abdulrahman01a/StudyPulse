@@ -6,6 +6,12 @@
   "background": {
     "service_worker": "src/background/background.js"
   },
+  "content_scripts": [
+    {
+      "matches": ["https://coursology-qbank.com/qbanks/usmle1/tests/*"],
+      "js": ["src/content/content.js"]
+    }
+  ],
   "action": {
     "default_popup": "src/popup/popup.html"
   }
