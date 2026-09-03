@@ -8,3 +8,17 @@ function isCoursologyUsmleStep1TestPage(url) {
 
 const isSupportedTestPage = isCoursologyUsmleStep1TestPage(window.location.href);
 
+if (isSupportedTestPage) {
+	const reportActivity = () => chrome.runtime.sendMessage({ type: "activity" });
+
+	chrome.runtime.sendMessage({ type: "page-entered" });
+
+	["mousemove", "click", "scroll", "keydown"].forEach((eventType) => {
+		window.addEventListener(eventType, reportActivity, { passive: true });
+	});
+
+	window.addEventListener("pagehide", () => {
+		chrome.runtime.sendMessage({ type: "page-left" });
+	});
+}
+
